@@ -27,7 +27,7 @@ function initializeSliders() {
   const mobileSlider = new Swiper('.mobile-banner', {
     loop: true,
     autoplay: {
-      delay: 5000,
+      delay: 9500,
       disableOnInteraction: false
     },
     pagination: {
@@ -48,15 +48,6 @@ function initializeSliders() {
     touchMoveStopPropagation: true, // Stop event propagation issues
     observer: true,
     observeParents: true
-  });
-  
-  // Add event listeners for mobileSlider
-  mobileSlider.on('slideChange', function() {
-    console.log('Mobile slide changed to', this.activeIndex);
-  });
-
-  mobileSlider.on('touchEnd', function() {
-    console.log('Touch ended');
   });
   
   // Event slider
