@@ -1488,3 +1488,31 @@ body {
         overflow-y: auto;
     }
 }
+
+/* Add animated GIF background to calendar section */
+.calendar-section {
+    position: relative;
+    background-color: transparent;
+    z-index: 1;
+}
+
+/* Overlay container for the GIF background */
+.calendar-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('images/gif/wedding-animation.gif');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.15; /* Subtle background so text remains readable */
+    z-index: -1;
+}
+
+/* Ensure calendar content remains visible */
+.calendar-container {
+    position: relative;
+    z-index: 2;
+}
