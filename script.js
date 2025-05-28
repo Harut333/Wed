@@ -28,6 +28,27 @@ document.addEventListener('DOMContentLoaded', function() {
           }
       }, { once: true });
   });
+  
+  // Mobile video playback fix
+  const mobileVideos = document.querySelectorAll('.video-slide video');
+  
+  // Special handling for mobile devices
+  if (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+      mobileVideos.forEach(video => {
+          // Force load and play
+          video.load();
+          
+          // Play on load and on any interaction
+          video.addEventListener('loadedmetadata', function() {
+              video.play().catch(e => console.log('Initial play prevented'));
+          });
+          
+          // iOS specific fix - try playing on touch
+          document.body.addEventListener('touchstart', function() {
+              video.play().catch(e => console.log('Touch play prevented'));
+          }, {once: true});
+      });
+  }
 });
 
 function initializeSliders() {
