@@ -181,6 +181,22 @@ body {
     filter: brightness(1.05);
 }
 
+/* Mobile video support */
+.swiper-slide video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* iOS specific fixes */
+@supports (-webkit-touch-callout: none) {
+    .swiper-slide video {
+        -webkit-playsinline: true;
+        object-fit: cover;
+    }
+}
+
 /* Banner Overlay */
 .banner-overlay {
     position: absolute;

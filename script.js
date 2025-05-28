@@ -2,6 +2,32 @@ document.addEventListener('DOMContentLoaded', function() {
   // Initialize all sliders
   initializeSliders();
   setupEventListeners();
+  
+  // Add mobile video support
+  const videos = document.querySelectorAll('video');
+  
+  videos.forEach(video => {
+      // Set video properties for mobile
+      video.setAttribute('playsinline', 'true');
+      video.setAttribute('webkit-playsinline', 'true');
+      video.muted = true;
+      
+      // Force play on mobile
+      video.addEventListener('loadeddata', function() {
+          video.play().catch(e => {
+              console.log('Autoplay prevented:', e);
+          });
+      });
+      
+      // Try to play when user touches the screen
+      document.addEventListener('touchstart', function() {
+          if (video.paused) {
+              video.play().catch(e => {
+                  console.log('Manual play failed:', e);
+              });
+          }
+      }, { once: true });
+  });
 });
 
 function initializeSliders() {
