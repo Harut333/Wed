@@ -48,22 +48,24 @@
     <div class="swiper top-slider mobile-banner">
         <div class="swiper-wrapper">
             <div class="swiper-slide video-slide">
-                <video 
-                    src="images/gif/5.mp4" 
-                    autoplay 
-                    muted 
-                    loop 
-                    playsinline 
-                    preload="auto"
-                    webkit-playsinline="true"
-                    x5-playsinline="true"
-                    poster="images/gif/poster.jpg">
-                    <!-- Poster is a static image that shows while video loads -->
+                <video autoplay muted loop playsinline preload="metadata">
+                    <!-- Multiple formats for better compatibility -->
+                    <source src="images/gif/5.mp4" type="video/mp4; codecs='avc1.42E01E'">
+                    <source src="images/gif/5.webm" type="video/webm" onerror="fallbackToImage(this)">
+
+                    <!-- Fallback image -->
+                    <img src="images/gif/poster.jpg" alt="Wedding video fallback">
                 </video>
             </div>
             <div class="swiper-slide">
                 <img src="https://i.pinimg.com/736x/8c/96/7d/8c967d2631ed5f8dfa163fe61e477d31.jpg"
                     alt="Mobile wedding image 2" />
+            </div>
+            <div class="swiper-slide">
+                <picture>
+                    <source srcset="images/gif/animation.webp" type="image/webp">
+                    <img src="images/gif/fallback.jpg" alt="Wedding animation" loading="lazy">
+                </picture>
             </div>
         </div>
         <div class="swiper-pagination"></div>

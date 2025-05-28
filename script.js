@@ -49,6 +49,16 @@ document.addEventListener('DOMContentLoaded', function() {
           }, {once: true});
       });
   }
+  
+  // Check video format compatibility
+  const video = document.querySelector('.video-slide video');
+  
+  // Log video info for debugging
+  console.log('Video format info:', {
+      canPlayType_MP4: video.canPlayType('video/mp4'),
+      canPlayType_WebM: video.canPlayType('video/webm'),
+      canPlayType_H264: video.canPlayType('video/mp4; codecs="avc1.42E01E"')
+  });
 });
 
 function initializeSliders() {
@@ -222,3 +232,66 @@ function submitRSVP(event) {
     // Close popup after successful submission
     closePopup('rsvp');
 }
+
+// Add to your script.js file
+function fallbackToImage(source) {
+    // If video format not supported, show the image fallback
+    const video = source.parentElement;
+    const container = video.parentElement;
+    
+    // Create fallback image
+    const img = document.createElement('img');
+    img.src = "images/gif/poster.jpg";
+    img.alt = "Wedding banner";
+    img.style.width = "100%";
+    img.style.height = "100%";
+    img.style.objectFit = "cover";
+    
+    // Replace video with image
+    container.appendChild(img);
+    container.removeChild(video);
+}
+
+// Mobile-specific video handling
+document.addEventListener('DOMContentLoaded', function() {
+    // Only proceed if we're on a mobile device
+    if (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        const videos = document.querySelectorAll('video');
+        
+        videos.forEach(video => {
+            // Set essential properties
+            video.muted = true;
+            video.playsInline = true;
+            video.setAttribute('playsinline', '');
+            
+            // Deferred play attempt
+            setTimeout(() => {
+                video.play().catch(e => {
+                    console.log('Deferred play failed:', e.message);
+                    
+                    // If playing fails, show fallback image
+                    if (e.name === 'NotSupportedError' || e.name === 'NotAllowedError') {
+                        const img = document.createElement('img');
+                        img.src = "images/gif/poster.jpg";
+                        img.alt = "Wedding banner";
+                        img.style.width = "100%";
+                        img.style.height = "100%";
+                        img.style.objectFit = "cover";
+                        
+                        video.parentElement.appendChild(img);
+                        video.style.display = 'none';
+                    }
+                });
+            }, 1000);
+            
+            // Try playing on user interaction
+            document.addEventListener('touchstart', function playOnTouch() {
+                video.play().catch(e => {
+                    console.log('Touch play failed:', e.message);
+                });
+                // Remove listener after first touch
+                document.removeEventListener('touchstart', playOnTouch);
+            }, { once: true });
+        });
+    }
+});
