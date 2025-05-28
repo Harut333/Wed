@@ -179,44 +179,43 @@
         <div class="popup-inner">
             <span class="close" onclick="closePopup('rsvp')">&times;</span>
             <h3>RSVP</h3>
-            <form class="rsvp-form" onsubmit="submitRSVP(event)">
+            <!-- RSVP Form with Radio Buttons (not dropdown) and Email field -->
+            <form id="rsvp-form" class="rsvp-form">
                 <div class="form-group">
-                    <label for="name">YOUR NAME</label>
-                    <input type="text" id="name" required>
+                    <label for="guest-name">Your Name</label>
+                    <input type="text" id="guest-name" name="guest-name" placeholder="Enter your full name" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="phone">PHONE NUMBER</label>
-                    <input type="tel" id="phone" required>
+                    <label for="guest-email">Your Email</label>
+                    <input type="email" id="guest-email" name="guest-email" placeholder="Enter your email address"
+                        required>
                 </div>
 
-                <div class="attendance-options">
+                <div class="form-group attendance-options">
                     <p>Will you attend?</p>
                     <div class="radio-container">
                         <label>
-                            <input type="radio" name="attendance" value="attending" required>
-                            Yes, I will attend
+                            <input type="radio" name="attendance" value="yes" required>
+                            Joyfully Accept
                         </label>
                         <label>
-                            <input type="radio" name="attendance" value="notAttending">
-                            No, I cannot attend
+                            <input type="radio" name="attendance" value="no" required>
+                            Regretfully Decline
                         </label>
                     </div>
                 </div>
 
-                <div class="guest-count">
-                    <h4>Number of Guests</h4>
-                    <div class="guest-buttons">
-                        <button type="button" onclick="changeGuestCount(-1)"
-                            aria-label="Decrease guest count">−</button>
-                        <span id="guestCountText">1</span>
-                        <button type="button" onclick="changeGuestCount(1)" aria-label="Increase guest count">+</button>
+                <div class="form-group guest-count-container">
+                    <label for="guest-count">Number of Guests</label>
+                    <div class="guest-counter">
+                        <button type="button" class="counter-btn" onclick="changeGuestCount(-1)">-</button>
+                        <span id="guest-count">1</span>
+                        <button type="button" class="counter-btn" onclick="changeGuestCount(1)">+</button>
+                        <input type="hidden" name="guest-count-input" id="guest-count-input" value="1">
                     </div>
                 </div>
-
-                <div class="form-button-container">
-                    <button type="submit" class="submit-btn">SUBMIT RSVP</button>
-                </div>
+                <button type="submit" class="submit-btn">Send RSVP</button>
             </form>
         </div>
     </div>
@@ -307,7 +306,7 @@
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="script.js"></script>
+    <script src="scriptt.js"></script>
 
     <!-- Footer Section -->
     <footer class="wedding-footer">
